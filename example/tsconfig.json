@@ -12,7 +12,9 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "declaration": true,
-    "outDir": "dist/"
+    "outDir": "dist/",
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact"
   },
-  "include": ["tinystore.ts"]
+  "include": ["src/**/*"]
 }

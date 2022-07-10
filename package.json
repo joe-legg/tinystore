@@ -1,17 +1,20 @@
 {
-  "name": "tinystore",
+  "name": "@joelegg/tinystore",
   "version": "0.1.0",
   "description": "Tiny state manager for preact",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/tinystore.js",
+  "types": "dist/tinystore.d.ts",
   "scripts": {
-    "build": "tsc --outDir dist/",
+    "build": "tsc",
     "format": "prettier --write \"**/*.+(js|ts)\"",
     "size": "npm run build && size-limit",
     "prepare": "npm run build"
   },
   "author": "Joe Legg",
   "license": "MIT",
+  "peerDependencies": {
+    "preact": "^10.9.0"
+  },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^7.0.8",
     "prettier": "^2.7.1",
@@ -20,7 +23,7 @@
   },
   "size-limit": [
     {
-      "path": "index.js"
+      "path": "dist/tinystore.js"
     }
   ]
 }
