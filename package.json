@@ -1,12 +1,12 @@
 {
   "name": "@joelegg/tinystore",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Tiny state manager for preact",
   "main": "dist/tinystore.js",
   "types": "dist/tinystore.d.ts",
   "scripts": {
     "build": "tsc",
-    "format": "prettier --write \"**/*.+(js|ts)\"",
+    "format": "prettier --parser typescript --write \"tinystore.ts\"",
     "size": "npm run build && size-limit",
     "prepare": "npm run build"
   },

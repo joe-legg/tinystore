@@ -3,18 +3,12 @@ import { useEffect, useState } from "preact/hooks"
 type Subsciber<TState> = (state: TState) => void
 
 type Subscribe<TState> = (callback: Subsciber<TState>) => () => void
-type SetState<TState> = (state: TState | ((state: TState) => any)) => void
+type SetState<TState> = (state: TState | ((state: TState) => TState)) => void
 type GetState<TState> = () => TState
 type UseSelector<TState> = (selector: (state: TState) => any) => any
 
-type StoreInit<TState> = (
-    set: SetState<TState>,
-    get: GetState<TState>
-) => TState
-
-export const createStore = (init: StoreInit<any>) => {
-    type TState = ReturnType<typeof init>
-    let state: TState
+export const createStore = <TState>(init: TState) => {
+    let state = init
     const subscribers: Set<Subsciber<TState>> = new Set()
 
     const subscribe: Subscribe<TState> = (callback) => {
@@ -26,10 +20,12 @@ export const createStore = (init: StoreInit<any>) => {
 
     const set: SetState<TState> = (newState) => {
         const nextState =
-            typeof newState == "function" ? newState(state) : newState
+            typeof newState === "function"
+                ? (newState as (state: TState) => TState)(state)
+                : newState
 
         if (nextState != state) {
-            state = { ...state, ...nextState }
+            state = nextState
             subscribers.forEach((sub) => sub(state))
         }
     }
@@ -40,6 +36,5 @@ export const createStore = (init: StoreInit<any>) => {
         return selector(state)
     }
 
-    state = init(set, get)
     return { subscribe, get, set, useSelector }
 }

@@ -1,9 +1,8 @@
 import { createStore } from "tinystore"
+export { store, increment, decrement, reset }
 
-export const store = createStore((set) => ({
-    count: 123,
+const store = createStore(0)
 
-    increment: () => set((state: any) => ({ count: state.count + 1 })),
-    decrement: () => set((state: any) => ({ count: state.count - 1 })),
-    reset: () => set({ count: 0 }),
-}))
+const increment = () => store.set((state) => state + 1)
+const decrement = () => store.set((state) => state - 1)
+const reset = () => store.set(0)

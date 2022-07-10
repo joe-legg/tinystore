@@ -1,5 +1,5 @@
 # Tinystore
-Tiny (353 B) state manager for preact inspired by zustand.
+Tiny (333 B) state manager for preact inspired by svelte.
 
 ```
 npm install @joelegg/tinystore
@@ -8,41 +8,34 @@ npm install @joelegg/tinystore
 ```typescript
 // store.ts
 import { createStore } from "tinystore"
+export { store, increment, decrement, reset }
 
-export const store = createStore((set) => ({
-    count: 0,
+const store = createStore<number>(0)
 
-    increment: () => set((state: any) => ({ count: state.count + 1 })),
-    decrement: () => set((state: any) => ({ count: state.count - 1 })),
-    reset: () => set({ count: 0 }),
-}))
+const increment = () => store.set((state) => state + 1)
+const decrement = () => store.set((state) => state - 1)
+const reset = () => store.set(0)
 ```
 
 
 ```typescript
 // app.ts
-import { store } from "./store"
+import { store, increment, decrement, reset } from "./store"
 
 export const Increment = () => {
-    const inc = store.useSelector((state) => state.increment)
-
-    return <button onclick={() => inc()}>+</button>
+    return <button onclick={() => increment()}>+</button>
 }
 
 export const Decrement = () => {
-    const dec = store.useSelector((state) => state.decrement)
-
-    return <button onclick={() => dec()}>-</button>
+    return <button onclick={() => decrement()}>-</button>
 }
 
 export const Reset = () => {
-    const reset = store.useSelector((state) => state.reset)
-
     return <button onclick={() => reset()}>Reset</button>
 }
 
 export const App = () => {
-    const count = store.useSelector((state) => state.count)
+    const count = store.useSelector((state) => state)
     return (
         <>
             <Increment />
