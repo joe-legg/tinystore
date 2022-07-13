@@ -35,7 +35,7 @@ export const Reset = () => {
 }
 
 export const App = () => {
-    const count = store.useSelector((state) => state)
+    const count = store.use()
     return (
         <>
             <Increment />

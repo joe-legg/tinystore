@@ -1,6 +1,6 @@
 {
   "name": "@joelegg/tinystore",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Tiny state manager for preact",
   "main": "dist/tinystore.js",
   "types": "dist/tinystore.d.ts",

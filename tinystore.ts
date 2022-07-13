@@ -5,7 +5,7 @@ type Subsciber<TState> = (state: TState) => void
 type Subscribe<TState> = (callback: Subsciber<TState>) => () => void
 type SetState<TState> = (state: TState | ((state: TState) => TState)) => void
 type GetState<TState> = () => TState
-type UseSelector<TState> = (selector: (state: TState) => any) => any
+type Use<TState> = (selector?: (state: TState) => any) => any
 
 export const createStore = <TState>(init: TState) => {
     let state = init
@@ -30,11 +30,11 @@ export const createStore = <TState>(init: TState) => {
         }
     }
 
-    const useSelector: UseSelector<TState> = (selector) => {
+    const use: Use<TState> = (selector = (state) => state) => {
         let [, forceUpdate] = useState({})
         useEffect(() => subscribe(() => forceUpdate({})), [])
         return selector(state)
     }
 
-    return { subscribe, get, set, useSelector }
+    return { subscribe, get, set, use }
 }

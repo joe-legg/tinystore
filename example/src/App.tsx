@@ -4,7 +4,7 @@ import { Decrement } from "./Decrement"
 import { Reset } from "./Reset"
 
 export const App = () => {
-    const count = store.useSelector((state) => state)
+    const count = store.use()
     return (
         <>
             <Increment />
